@@ -28,9 +28,9 @@ const covid19ImpactEstimator = (data) => {
 
   // chhallenge two
   // Severe Cases By Requested Time
-  const impactSevereCases = (15 / 100) * impact.infectionsByRequestedTime;
+  const impactSevereCases = 0.15 * impact.infectionsByRequestedTime;
   impact.severeCasesByrequestedTime = impactSevereCases;
-  const severeImpactCases = (15 / 100) * severeImpact.infectionsByRequestedTime;
+  const severeImpactCases = 0.15 * severeImpact.infectionsByRequestedTime;
   severeImpact.severeCasesByrequestedTime = severeImpactCases;
 
   // Hospital Beds By Requested Time
