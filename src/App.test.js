@@ -35,6 +35,6 @@ const estimate = {
   }
 };
 
-test('estimator ', () => {
-  expect(covid19Impactestimator(data)).toBeCalledWith(estimate);
+test('estimator', () => {
+  expect(covid19Impactestimator(data)).toMatchObject(estimate);
 });
