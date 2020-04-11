@@ -9,8 +9,8 @@ const covid19ImpactEstimator = (data) => {
   // Normalizing PeriodType To Days
   if (data.periodType === 'weeks') {
     data.timeToElapse *= 7;
-  } else if (data.periodType === 'month') {
-    data.timeToElapse *= 31;
+  } else if (data.periodType === 'months') {
+    data.timeToElapse *= 30;
   }
 
   const date = data.timeToElapse;
