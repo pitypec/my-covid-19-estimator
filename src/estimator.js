@@ -41,31 +41,31 @@ const covid19ImpactEstimator = (data) => {
   );
   severeImpact.hospitalBedsByRequestedTime = Math.trunc(beds - severeCases);
 
-  // challenge three
-  // Cases For ICU By Requested Time
-  const impactcasesForICU = 0.05 * impact.infectionsByRequestedTime;
-  impact.casesForICUByRequestedTime = impactcasesForICU;
-  const severeCasesForICU = 0.05 * severeImpact.infectionsByRequestedTime;
-  severeImpact.casesForICUByRequestedTime = severeCasesForICU;
+  // // challenge three
+  // // Cases For ICU By Requested Time
+  // const impactcasesForICU = 0.05 * impact.infectionsByRequestedTime;
+  // impact.casesForICUByRequestedTime = impactcasesForICU;
+  // const severeCasesForICU = 0.05 * severeImpact.infectionsByRequestedTime;
+  // severeImpact.casesForICUByRequestedTime = severeCasesForICU;
 
-  // Cases For Ventilators By Requested Time
-  const impactCasesForVentilators = Math.trunc(
-    0.02 * impact.infectionsByRequestedTime
-  );
-  impact.casesForVentilatorsByRequestedTime = impactCasesForVentilators;
-  const severeCasesForVentilators = Math.trunc(
-    0.02 * severeImpact.infectionsByRequestedTime
-  );
-  severeImpact.casesForVentilatorsByRequestedTime = severeCasesForVentilators;
+  // // Cases For Ventilators By Requested Time
+  // const impactCasesForVentilators = Math.trunc(
+  //   0.02 * impact.infectionsByRequestedTime
+  // );
+  // impact.casesForVentilatorsByRequestedTime = impactCasesForVentilators;
+  // const severeCasesForVentilators = Math.trunc(
+  //   0.02 * severeImpact.infectionsByRequestedTime
+  // );
+  // severeImpact.casesForVentilatorsByRequestedTime = severeCasesForVentilators;
 
-  // Dollars In Flight
-  const impactDollarsInFlight = impact.infectionsByRequestedTime;
-  const dollar = (impactDollarsInFlight * populations * dailyIncome) / date;
-  impact.dollarsInFlight = Math.trunc(dollar);
+  // // Dollars In Flight
+  // const impactDollarsInFlight = impact.infectionsByRequestedTime;
+  // const dollar = (impactDollarsInFlight * populations * dailyIncome) / date;
+  // impact.dollarsInFlight = Math.trunc(dollar);
 
-  const severeInfections = severeImpact.infectionsByRequestedTime;
-  const severeDollars = (severeInfections * populations * dailyIncome) / date;
-  severeImpact.dollarsInFlight = Math.trunc(severeDollars);
+  // const severeInfections = severeImpact.infectionsByRequestedTime;
+  // const severeDollars = (severeInfections * populations * dailyIncome) / date;
+  // severeImpact.dollarsInFlight = Math.trunc(severeDollars);
 
   return {
     data,
