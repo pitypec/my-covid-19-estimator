@@ -1,81 +1,77 @@
-// export const challengeOne = () => {
-//   const data = {
-//     region: {
-//       name: 'Africa',
-//       avgAge: 19.7,
-//       avgDailyIncomeInUSD: 5,
-//       avgDailyIncomePopulation: 0.71
-//     },
-//     periodType: 'days',
-//     timeToElapse: 58,
-//     reportedCases: 674,
-//     population: 66622705,
-//     totalHospitalBeds: 1380614
-//   };
-//   const impact = {};
-//   const severeImpact = {};
-
-//   //  const currentlyInfected = 0;
-
-//   impact.currentlyInfected = data.reportedCases * 10;
-//   severeImpact.currentlyInfected = data.reportedCases * 50;
-
-//   impact.infectionsRequestedByTime = impact.currentlyInfected * 2 ** 9;
-//   severeImpact.infectionsRequestedByTime =
-//     severeImpact.currentlyInfected * 2 ** 9;
-
-//   impact.severeCasesByrequestedTime =
-//     (15 / 100) * impact.infectionsRequestedByTime;
-//   severeImpact.severeCasesByrequestedTime =
-//     (15 / 100) * severeImpact.infectionsRequestedByTime;
-
-//   return { data, impact, severeImpact };
-// };
 const covid19ImpactEstimator = (data) => {
   const impact = {};
   const severeImpact = {};
+  const beds = (35 / 100) * data.totalHospitalBeds;
+  const populations = data.region.avgDailyIncomePopulation;
 
-  //  const currentlyInfected = 0;
+  // Normalizing PeriodType To Days
+  if (data.periodType === 'weeks') {
+    data.timeToElapse *= 7;
+  } else if (data.periodType === 'month') {
+    data.timeToElapse *= 30;
+  }
+
+  const date = data.timeToElapse;
+  const factor = Math.trunc(date / 3);
+
   //challenge one
+
+  // currently Infected
   impact.currentlyInfected = data.reportedCases * 10;
   severeImpact.currentlyInfected = data.reportedCases * 50;
 
-  impact.infectionsByRequestedTime = impact.currentlyInfected * 2 ** 9;
+  // Infection By Requested Time
+  impact.infectionsByRequestedTime = impact.currentlyInfected * 2 ** factor;
   severeImpact.infectionsByRequestedTime =
-    severeImpact.currentlyInfected * 2 ** 9;
+    severeImpact.currentlyInfected * 2 ** factor;
 
   //chhallenge two
+
+  // Severe Cases By Requested Time
   impact.severeCasesByrequestedTime =
     (15 / 100) * impact.infectionsByRequestedTime;
   severeImpact.severeCasesByrequestedTime =
     (15 / 100) * severeImpact.infectionsByRequestedTime;
 
-  impact.hospitalBedsByRequestedTime =
-    data.totalHospitalBeds - impact.severeCasesByrequestedTime;
-  severeImpact.hospitalBedsByRequestedTime =
-    data.totalHospitalBeds - severeImpact.severeCasesByrequestedTime;
+  // Hospital Beds By Requested Time
+  impact.hospitalBedsByRequestedTime = Math.trunc(
+    beds - impact.severeCasesByrequestedTime
+  );
+  severeImpact.hospitalBedsByRequestedTime = Math.trunc(
+    beds - severeImpact.severeCasesByrequestedTime
+  );
 
   //challenge three
+
+  //Cases For ICU By Requested Time
   impact.casesForICUByRequestedTime =
     (5 / 100) * impact.infectionsByRequestedTime;
   severeImpact.casesForICUByRequestedTime =
     (5 / 100) * severeImpact.infectionsByRequestedTime;
 
-  impact.casesForVentilatorsByRequestedTime =
-    (2 / 100) * impact.infectionsByRequestedTime;
-  severeImpact.casesForVentilatorsByRequestedTime =
-    (2 / 100) * severeImpact.infectionsByRequestedTime;
+  // Cases For Ventilators By Requested Time
+  impact.casesForVentilatorsByRequestedTime = Math.round(
+    (2 / 100) * impact.infectionsByRequestedTime
+  );
+  severeImpact.casesForVentilatorsByRequestedTime = Math.round(
+    (2 / 100) * severeImpact.infectionsByRequestedTime
+  );
 
-  impact.dollarsInFlight =
+  // Dollars In Flight
+
+  const impactDollarsInFlight =
     impact.infectionsByRequestedTime *
-    ((65 / 100) * data.population) *
+    populations *
     data.region.avgDailyIncomeInUSD *
-    30;
-  severeImpact.dollarsInFlight =
+    date;
+  impact.dollarsInFlight = impactDollarsInFlight.toFixed(1);
+
+  const severeDollarsInFlight =
     severeImpact.infectionsByRequestedTime *
-    ((65 / 100) * data.population) *
+    populations *
     data.region.avgDailyIncomeInUSD *
-    30;
+    date;
+  severeImpact.dollarsInFlight = severeDollarsInFlight;
 
   return {
     data,
