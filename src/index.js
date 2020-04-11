@@ -4,7 +4,6 @@ const form = document.forms['estimator-form'];
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
-
   const name = form.querySelector('input[name="data-name"]').value;
   const avgAge = form.querySelector('input[name="data-average-age"]').value;
   const avgIncome = form.querySelector(
@@ -35,6 +34,5 @@ form.addEventListener('submit', (e) => {
     totalHospitalBed,
     periodType
   };
-  console.log(data);
   covid19ImpactEstimator(data);
 });

@@ -1,4 +1,5 @@
-import covid19Impactestimator from './estimator.js';
+import covid19Impactestimator from './estimator';
+
 const data = {
   region: {
     name: 'Africa',
@@ -33,6 +34,7 @@ const estimate = {
     dollarsInFlight: 62424498176
   }
 };
+
 test('estimator ', () => {
   expect(covid19Impactestimator(data)).toBeCalledWith(estimate);
 });
