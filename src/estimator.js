@@ -2,8 +2,8 @@ const covid19ImpactEstimator = (data) => {
   const impact = {};
   const severeImpact = {};
   const beds = 0.35 * data.totalHospitalBeds;
-  const populations = data.region.avgDailyIncomePopulation;
-  const dailyIncome = data.region.avgDailyIncomeInUSD;
+  // const populations = data.region.avgDailyIncomePopulation;
+  // const dailyIncome = data.region.avgDailyIncomeInUSD;
 
   // Normalizing PeriodType To Days
   if (data.periodType === 'days') {
