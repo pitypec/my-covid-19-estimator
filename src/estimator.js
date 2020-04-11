@@ -6,7 +6,9 @@ const covid19ImpactEstimator = (data) => {
   const dailyIncome = data.region.avgDailyIncomeInUSD;
 
   // Normalizing PeriodType To Days
-  if (data.periodType === 'weeks') {
+  if (data.periodType === 'days') {
+    data.timeToElapse *= 1;
+  } else if (data.periodType === 'weeks') {
     data.timeToElapse *= 7;
   } else if (data.periodType === 'months') {
     data.timeToElapse *= 30;
@@ -37,6 +39,7 @@ const covid19ImpactEstimator = (data) => {
   impact.hospitalBedsByRequestedTime = Math.trunc(
     beds - impact.severeCasesByrequestedTime
   );
+
   severeImpact.hospitalBedsByRequestedTime = Math.trunc(beds - severeCases);
 
   // challenge three
@@ -48,11 +51,11 @@ const covid19ImpactEstimator = (data) => {
 
   // Cases For Ventilators By Requested Time
   const impactCasesForVentilators = Math.trunc(
-    (2 / 100) * impact.infectionsByRequestedTime
+    0.02 * impact.infectionsByRequestedTime
   );
   impact.casesForVentilatorsByRequestedTime = impactCasesForVentilators;
   const severeCasesForVentilators = Math.trunc(
-    (2 / 100) * severeImpact.infectionsByRequestedTime
+    0.02 * severeImpact.infectionsByRequestedTime
   );
   severeImpact.casesForVentilatorsByRequestedTime = severeCasesForVentilators;
 
